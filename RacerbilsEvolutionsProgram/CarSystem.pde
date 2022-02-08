@@ -10,6 +10,7 @@ class CarSystem {
       CarControllerList.add(controller);
     }
   }
+  
 
   void updateAndDisplay() {
     //1.) Opdaterer sensorer og bilpositioner
@@ -22,4 +23,5 @@ class CarSystem {
       controller.display();
     }
   }
+  
 }
