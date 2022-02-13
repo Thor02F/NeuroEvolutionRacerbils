@@ -2,7 +2,7 @@ class CarSystem {
 
   DNA[] population;
   ArrayList<DNA> matingPool;
-  float mutationRate = 0.01; //Procent rate for hver enkel
+  float mutationRate = 0.1; //Procent rate for hver enkel
   float topFitness;
 
   CarSystem(int populationSize) {
@@ -25,7 +25,7 @@ class CarSystem {
     float maxFitness = 0;
     for (int i = 0; i < populationSize; i++) {
       if (population[i].fitness > maxFitness) {
-        maxFitness = population[i].fitness;
+        maxFitness = population[i].fitness; //Opdater fitness undervejs kun hvis den bliver større
         topFitness = maxFitness;
       }
     }
@@ -37,8 +37,8 @@ class CarSystem {
       }
     }
   }  
-
-  void generate() {
+// 
+  void generate() { //Bruger copy metoden med mutation
  if (matingPool.size() == 0){
     for (int i=0; i<populationSize; i++) {
         DNA child = new DNA(2);

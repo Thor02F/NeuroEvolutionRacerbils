@@ -1,5 +1,5 @@
 //populationSize: Hvor mange "controllere" der genereres, controller = bil & hjerne & sensorer
-int       populationSize  = 1;     
+int       populationSize  = 100;     
 int timer = 0;
 float simulationTimer = 10;
 int bestFitness;
@@ -7,7 +7,6 @@ int generations = 1;
 
 boolean showSensors = false;
 
-//CarSystem: Indholder en population af "controllere" 
 CarSystem carSystem       = new CarSystem(populationSize);
 
 //trackImage: RacerBanen , Vejen=sort, Udenfor=hvid, Målstreg= 100%grøn 
@@ -31,17 +30,14 @@ void draw() {
   text("Time Left: " + (10*generations-int(millis()/1000)), 10, 25);
   text("Max Fitness: " + bestFitness, 240, 25);
    text("Population size: " +populationSize ,240, 50); 
-   //int(carSystem.topFitness)
   text("Generation: " + generations, 10, 50);
-  fill(0);
+  fill(255,0,0);
   text("Press 'enter' to show sensors", 80, 600-24);
   carSystem.calcFitness();
   simulate();
   carSystem.run();
   carSystem.naturalSelection();
 }
-
-//void reset(){}
 
 
 void simulate() {
