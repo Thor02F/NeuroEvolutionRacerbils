@@ -33,8 +33,9 @@ class DNA {
     if (fitness<0) fitness = 0;
   }
 
+
   void mutate(float mutationRate) {
-    for (int i=0; i<genes.length; i++) {
+    for (int i=0; i<genes.length; i++) { //mutatuionRate på 5% per gen (11 gener)
       if (random(1)<mutationRate) {
         genes[i] += random(-mVarians , mVarians );
       }

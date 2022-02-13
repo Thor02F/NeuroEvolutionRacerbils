@@ -2,7 +2,7 @@ class CarSystem {
 
   DNA[] population;
   ArrayList<DNA> matingPool;
-  float mutationRate = 0.1; //Procent rate for hver enkel
+  float mutationRate = 0.05; //Procent rate for hver enkel gen mutation så 11*5%
   float topFitness;
 
   CarSystem(int populationSize) {
@@ -20,7 +20,6 @@ class CarSystem {
   }
 
   void naturalSelection() {
-
     matingPool = new ArrayList<DNA>();
     float maxFitness = 0;
     for (int i = 0; i < populationSize; i++) {
@@ -29,7 +28,6 @@ class CarSystem {
         topFitness = maxFitness;
       }
     }
-
     for (int i = 0; i < populationSize; i++) {
       int n = int(population[i].fitness/maxFitness*100);
       for (int j = 0; j < n; j++) {   

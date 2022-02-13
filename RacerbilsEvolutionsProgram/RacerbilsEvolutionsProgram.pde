@@ -28,11 +28,12 @@ void draw() {
   textSize(24);
   fill(255);
   text("Time Left: " + (10*generations-int(millis()/1000)), 10, 25);
-  text("Max Fitness: " + bestFitness, 240, 25);
-   text("Population size: " +populationSize ,240, 50); 
+  text("Best score Gen "+generations+": "+int(carSystem.topFitness) ,210, 75); 
+  text("Best score: " + bestFitness, 210, 25);
+   text("Population size: " +populationSize ,210, 50); 
   text("Generation: " + generations, 10, 50);
   fill(255,0,0);
-  text("Press 'enter' to show sensors", 80, 600-24);
+  text("Press 'enter' to show sensors", 80, 560);
   carSystem.calcFitness();
   simulate();
   carSystem.run();
