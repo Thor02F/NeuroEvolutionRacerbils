@@ -1,6 +1,11 @@
 //populationSize: Hvor mange "controllere" der genereres, controller = bil & hjerne & sensorer
-int       populationSize  = 100;
-int       generationNum = 0;
+int       populationSize  = 1;     
+int timer = 0;
+float simulationTimer = 10;
+int bestFitness;
+int generations = 1;
+
+boolean showSensors = false;
 
 //CarSystem: Indholder en population af "controllere" 
 CarSystem carSystem       = new CarSystem(populationSize);
@@ -14,27 +19,48 @@ void setup() {
 }
 
 void draw() {
-  clear();
-  fill(255);
-  rect(0,50,1000,1000);
-  image(trackImage,0,80);  
-  carSystem.updateAndDisplay();
   
-  //TESTKODE: Frastortering af dårlige biler, for hver gang der går 200 frame - f.eks. dem der kører uden for banen
-   if (frameCount%900==0) {
-      println("Fjern den gamle generation");
-      
+  clear();
+  background(255);
+  fill(0);
+  rect(0, 0, 1000, 80);
+  image(trackImage, 0, 80);  
+   
+  textSize(24);
+  fill(255);
+  text("Time Left: " + (10*generations-int(millis()/1000)), 10, 25);
+  text("Max Fitness: " + bestFitness, 240, 25);
+   text("Population size: " +populationSize ,240, 50); 
+   //int(carSystem.topFitness)
+  text("Generation: " + generations, 10, 50);
+  fill(0);
+  text("Press 'enter' to show sensors", 80, 600-24);
+  carSystem.calcFitness();
+  simulate();
+  carSystem.run();
+  carSystem.naturalSelection();
+}
+
+//void reset(){}
+
+
+void simulate() {
+  if (millis() > timer+simulationTimer*1000) {
+    timer = millis();
+
+    if (bestFitness < carSystem.topFitness) {
+    bestFitness = int(carSystem.topFitness);
     }
-    //
-     //TESTKODE: Frastortering af dårlige biler, for hver gang der går 200 frame - f.eks. dem der kører uden for banen
-  /* if (frameCount%200==0) {
-      println("FJERN DEM DER KØRER UDENFOR BANEN frameCount: " + frameCount);
-      for (int i = carSystem.CarControllerList.size()-1 ; i >= 0;  i--) {
-        SensorSystem s = carSystem.CarControllerList.get(i).sensorSystem;
-        if(s.whiteSensorFrameCount > 0){
-          carSystem.CarControllerList.remove(carSystem.CarControllerList.get(i));
-         }
-      }
-    }*/
-    //
+    carSystem.generate();
+    for (int i = 0; i < populationSize; i++) {
+      carSystem.population[i].reset();            
+    }
+    generations++;
+  }
+}
+
+void keyPressed(){
+  if (keyCode == (int)ENTER){
+    showSensors = !showSensors;
+  }
 }

@@ -5,8 +5,7 @@ class CarController {
   NeuralNetwork hjerne       = new NeuralNetwork(varians); 
   SensorSystem  sensorSystem = new SensorSystem();
       
-   public float fitness;
-   float[] genes;
+
    
   void update() {
     //1.)opdtarer bil 
@@ -22,29 +21,7 @@ class CarController {
     //4.)bilen drejes
     bil.turnCar(turnAngle);
   }
-   void fitness () { 
-    fitness = sensorSystem.clockWiseRotationFrameCounter;
-    }
-    
-    void cloneGenes () {
-     
-    //arrayCopy(
-   // hjerne.biases[i-8]
-    }
-    
-        /*
-    void mutate(float mutationRate) {
-    for (int i = 0; i < genes.length; i++) {
-      if (random(1) < mutationRate) {
-        randomNUM = (int)random(0, 1);
-        if (randomNUM ==1) {
-          genes[i]=false;
-        } else {
-        }
-        genes[i] = true;  // Pick from range of chars
-      }
-    }
-  }*/
+
   
   void display(){
     bil.displayCar();

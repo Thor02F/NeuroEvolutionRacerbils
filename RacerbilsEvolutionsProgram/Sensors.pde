@@ -1,6 +1,9 @@
 class SensorSystem {
   //SensorSystem - alle bilens sensorer - ogå dem der ikke bruges af "hjernen"
   
+  //tjekker hvor lang tid den er på højre side af banen
+  float rightSide;
+  
   //wall detectors
   float sensorMag = 50;
   float sensorAngle = PI*2/8;
@@ -29,7 +32,9 @@ class SensorSystem {
   int     lapTimeInFrames       = 10000;
 
   void displaySensors() {
-    strokeWeight(0.5);
+    if (showSensors == true) //Fjern front, venstre og højre seonsore for at tegne mindre, for at programmet køre bedre
+    {
+        strokeWeight(0.5);
     if (frontSensorSignal) { 
       fill(255, 0, 0);
       ellipse(anchorPos.x+sensorVectorFront.x, anchorPos.y+sensorVectorFront.y, 8, 8);
@@ -45,6 +50,8 @@ class SensorSystem {
     line(anchorPos.x, anchorPos.y, anchorPos.x+sensorVectorFront.x, anchorPos.y+sensorVectorFront.y);
     line(anchorPos.x, anchorPos.y, anchorPos.x+sensorVectorLeft.x, anchorPos.y+sensorVectorLeft.y);
     line(anchorPos.x, anchorPos.y, anchorPos.x+sensorVectorRight.x, anchorPos.y+sensorVectorRight.y);
+
+    }
 
     strokeWeight(2);
     if (whiteSensorFrameCount>0) {
@@ -85,6 +92,8 @@ class SensorSystem {
     updateSensorVectors(vel);
     
     anchorPos.set(pos.x,pos.y);
+    
+    if (pos.x > width/2) rightSide++;
   }
 
   void updateSensorVectors(PVector vel) {
